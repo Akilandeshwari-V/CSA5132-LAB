@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void get_pos(char matrix[5][5], char c, int *r, int *c_idx) {
+    if (c == 'J') c = 'I';
+    for (int i = 0; i < 5; i++)
+        for (int j = 0; j < 5; j++)
+            if (matrix[i][j] == c) { *r = i; *c_idx = j; return; }
+}
+
+int main() {
+    char matrix[5][5], key[100], text[100], map[26] = {0};
+    int i, j, k = 0, r1, c1, r2, c2;
+
+    printf("Enter key: ");
+    scanf("%s", key);
+    printf("Enter plaintext: ");
+    scanf("%s", text);
+
+    for (i = 0; key[i]; i++) {
+        char c = toupper(key[i]);
+        if (c == 'J') c = 'I';
+        if (!map[c - 'A']) {
+            matrix[k / 5][k % 5] = c;
+            map[c - 'A'] = 1;
+            k++;
+        }
+    }
+    for (i = 0; i < 26; i++) {
+        if (i + 'A' == 'J') continue;
+        if (!map[i]) {
+            matrix[k / 5][k % 5] = i + 'A';
+            k++;
+        }
+    }
+
+    printf("Encrypted: ");
+    int len = strlen(text);
+    for (i = 0; i < len; i += 2) {
+        char a = toupper(text[i]);
+        char b = (i + 1 < len) ? toupper(text[i + 1]) : 'X';
+        if (a == b) { b = 'X'; i--; }
+
+        get_pos(matrix, a, &r1, &c1);
+        get_pos(matrix, b, &r2, &c2);
+
+        if (r1 == r2)
+            printf("%c%c", matrix[r1][(c1 + 1) % 5], matrix[r2][(c2 + 1) % 5]);
+        else if (c1 == c2)
+            printf("%c%c", matrix[(r1 + 1) % 5][c1], matrix[(r2 + 1) % 5][c2]);
+        else
+            printf("%c%c", matrix[r1][c2], matrix[r2][c1]);
+    }
+    printf("\n");
+    return 0;
+}
