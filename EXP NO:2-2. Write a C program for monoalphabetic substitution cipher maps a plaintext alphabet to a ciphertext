@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char msg[100];
+    char *alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char *key   = "QWERTYUIOPASDFGHJKLZXCVBNM"; 
+
+    printf("Enter plaintext: ");
+    fgets(msg, sizeof(msg), stdin);
+
+    for (int i = 0; msg[i] != '\0'; i++) {
+        if (isalpha(msg[i])) {
+            int is_low = islower(msg[i]);
+            char upper = toupper(msg[i]);
+            int index = strchr(alpha, upper) - alpha;
+            char cipher = key[index];
+            msg[i] = is_low ? tolower(cipher) : cipher;
+        }
+    }
+
+    printf("Encrypted: %s", msg);
+    return 0;
+}
