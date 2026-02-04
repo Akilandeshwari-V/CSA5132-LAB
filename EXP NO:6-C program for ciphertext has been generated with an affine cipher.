@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char msg[100];
+    int a = 9, b = 17, a_inv = 3;
+
+    printf("Enter encrypted message: ");
+    fgets(msg, sizeof(msg), stdin);
+
+    for (int i = 0; msg[i] != '\0'; i++) {
+        if (isalpha(msg[i])) {
+            char base = isupper(msg[i]) ? 'A' : 'a';
+            int c = msg[i] - base;
+            int p = (a_inv * (c - b)) % 26;
+            if (p < 0) p += 26;
+            msg[i] = p + base;
+        }
+    }
+
+    printf("Decrypted: %s", msg);
+    return 0;
+}
