@@ -1,0 +1,9 @@
+#include <stdio.h>
+int m(int a){for(int i=1;i<26;i++)if(a*i%26==1)return i;return 0;}
+int main(){
+    int c1='B'-'A',c2='U'-'A',p1='E'-'A',p2='T'-'A';
+    int a=((c1-c2+26)%26)*m((p1-p2+26)%26)%26;
+    int b=(c1-a*p1%26+26)%26,ainv=m(a);
+    char s[200];scanf("%s",s);
+    for(int i=0;s[i];i++)putchar((ainv*(s[i]-'A'-b+26)%26)+'A');
+}
