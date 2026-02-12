@@ -1,0 +1,6 @@
+#include <stdio.h>
+#include <math.h>
+int main(){
+    printf("Total keys ≈ 2^%.0f\n",25*log2(25));
+    printf("Effective keys ≈ 2^%.0f\n",25*log2(25)-log2(2));
+}
