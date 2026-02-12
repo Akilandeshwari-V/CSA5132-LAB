@@ -1,0 +1,8 @@
+#include <stdio.h>
+#include <string.h>
+int main(){
+char k[]="CIPHER",c[26]={0};int i,j=0;
+for(i=0;k[i];i++)if(!strchr(c,k[i]))c[j++]=k[i];
+for(i='A';i<='Z';i++)if(!strchr(c,i))c[j++]=i;
+for(i=0;i<26;i++)printf("%c ",c[i]);
+}
