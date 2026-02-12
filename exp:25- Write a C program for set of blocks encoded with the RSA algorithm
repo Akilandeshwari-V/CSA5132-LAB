@@ -1,0 +1,11 @@
+#include <stdio.h>
+int gcd(int a,int b){return b?gcd(b,a%b):a;}
+int main(){
+int n=3599,m=118,c;
+c=(m*m)%n;
+int p=gcd(m,n);
+if(p>1&&p<n){
+int q=n/p;
+printf("Broken: p=%d q=%d\n",p,q);
+}else printf("No factor found\n");
+}
