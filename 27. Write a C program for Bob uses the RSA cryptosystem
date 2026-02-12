@@ -1,0 +1,8 @@
+#include <stdio.h>
+long mod(long a,long e,long n){long r=1;while(e){if(e&1)r=r*a%n;a=a*a%n;e>>=1;}return r;}
+int main(){
+long e=65537,n=99991,c;
+long t[26];for(int i=0;i<26;i++)t[i]=mod(i,e,n);
+scanf("%ld",&c);
+for(int i=0;i<26;i++)if(t[i]==c)printf("%c\n",i+'A');
+}
