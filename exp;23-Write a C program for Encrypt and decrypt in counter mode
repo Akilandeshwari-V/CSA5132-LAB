@@ -1,0 +1,39 @@
+#include <stdio.h>
+int IP[]={2,6,3,1,4,8,5,7},IPR[]={4,1,3,5,7,2,8,6},EP[]={4,1,2,3,2,3,4,1};
+int P4[]={2,4,3,1},S0[4][4]={{1,0,3,2},{3,2,1,0},{0,2,1,3},{3,1,3,2}};
+int S1[4][4]={{0,1,2,3},{2,0,1,3},{3,0,1,0},{2,1,0,3}};
+int P10[]={3,5,2,7,4,10,1,9,8,6},P8[]={6,3,7,4,8,5,10,9};
+void perm(int*p,int*a,int n){int t[n];for(int i=0;i<n;i++)t[i]=a[p[i]-1];for(int i=0;i<n;i++)a[i]=t[i];}
+void ls(int*a,int n){int t=a[0];for(int i=0;i<n-1;i++)a[i]=a[i+1];a[n-1]=t;}
+void key(int*k,int*k1,int*k2){
+int t[10];for(int i=0;i<10;i++)t[i]=k[i];perm(P10,t,10);
+ls(t,5);ls(t+5,5);for(int i=0;i<8;i++)k1[i]=t[P8[i]-1];
+ls(t,5);ls(t,5);ls(t+5,5);ls(t+5,5);for(int i=0;i<8;i++)k2[i]=t[P8[i]-1];
+}
+void fk(int*r,int*k){
+int t[8];for(int i=0;i<4;i++){t[i]=r[i+4];t[i+4]=r[i+4];}
+perm(EP,t,8);for(int i=0;i<8;i++)t[i]^=k[i];
+int a=S0[t[0]*2+t[3]][t[1]*2+t[2]],b=S1[t[4]*2+t[7]][t[5]*2+t[6]];
+int o[4]={a>>1&1,a&1,b>>1&1,b&1};perm(P4,o,4);
+for(int i=0;i<4;i++)r[i]^=o[i];
+}
+void sdes(int*p,int*c,int*k1,int*k2){
+int t[8];for(int i=0;i<8;i++)t[i]=p[i];perm(IP,t,8);
+fk(t,k1);for(int i=0;i<4;i++){int x=t[i];t[i]=t[i+4];t[i+4]=x;}
+fk(t,k2);perm(IPR,t,8);for(int i=0;i<8;i++)c[i]=t[i];
+}
+int main(){
+int keyb[]={0,1,1,1,1,1,1,1,0,1},k1[8],k2[8];
+int ctr[]={0,0,0,0,0,0,0,0};
+int p[]={0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0};
+int c[24],s[8];
+key(keyb,k1,k2);
+for(int i=0;i<24;i+=8){
+sdes(ctr,s,k1,k2);
+for(int j=0;j<8;j++)c[i+j]=p[i+j]^s[j];
+for(int j=7;j>=0;j--)if(++ctr[j]<2)break;else ctr[j]=0;
+}
+for(int i=0;i<24;i++)printf("%d",c[i]);puts("");
+for(int i=0;i<24;i++)p[i]=c[i]^((i%8)?0:s[i%8]);
+for(int i=0;i<24;i++)printf("%d",p[i]);
+}
