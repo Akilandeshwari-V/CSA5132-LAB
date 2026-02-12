@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
+long mod(long a,long e,long m){long r=1;while(e){if(e&1)r=r*a%m;a=a*a%m;e>>=1;}return r;}
+int main(){
+long p=23,q=11,g=2,x=5,h=7;
+long k1=3,k2=7;
+long r1=mod(g,k1,p)%q,s1=(mod(k1,q-2,q)*(h+x*r1)%q)%q;
+long r2=mod(g,k2,p)%q,s2=(mod(k2,q-2,q)*(h+x*r2)%q)%q;
+printf("DSA1:%ld %ld\nDSA2:%ld %ld\n",r1,s1,r2,s2);
+long n=33,e=3,d=7;
+long rsa1=mod(h,d,n),rsa2=mod(h,d,n);
+printf("RSA1:%ld\nRSA2:%ld\n",rsa1,rsa2);
+}
