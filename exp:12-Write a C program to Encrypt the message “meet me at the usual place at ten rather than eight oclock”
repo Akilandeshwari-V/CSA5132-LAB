@@ -1,0 +1,18 @@
+#include <stdio.h>
+int k[2][2]={{9,4},{5,7}},ki[2][2]={{7,22},{15,9}};
+int m(int x){x%=26;return x<0?x+26:x;}
+int main(){
+char p[]="MEETMEATTHEUSUALPLACEATTENRATHERTHANEIGHTOCLOCK",c[200];int i;
+for(i=0;p[i];i+=2){
+int a=p[i]-'A',b=p[i+1]-'A';
+int x=m(k[0][0]*a+k[0][1]*b),y=m(k[1][0]*a+k[1][1]*b);
+printf("(%d %d)->(%d %d)\n",a,b,x,y);
+c[i]=x+'A';c[i+1]=y+'A';
+}
+printf("Cipher:%s\n",c);
+for(i=0;c[i];i+=2){
+int a=c[i]-'A',b=c[i+1]-'A';
+int x=m(ki[0][0]*a+ki[0][1]*b),y=m(ki[1][0]*a+ki[1][1]*b);
+printf("(%d %d)->(%d %d)\n",a,b,x,y);
+}
+}
