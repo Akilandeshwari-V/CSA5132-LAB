@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+char eng[]="ETAOINSHRDLCUMWFGYPBVKJXQZ";
+
+double score(char *s){
+double f[26]={0},e[]={12.7,9.1,8.2,7.5,7.0,6.7,6.3,6.1,6.0,4.3,4.0,2.8,2.8,2.4,2.4,2.2,2.0,2.0,1.9,1.5,1.0,0.8,0.2,0.2,0.1,0.1};
+int n=0; for(int i=0;s[i];i++) if(s[i]>='A'&&s[i]<='Z'){f[s[i]-'A']++;n++;}
+double sc=0; for(int i=0;i<26;i++) sc+=f[i]*e[i];
+return sc;
+}
+
+int main(){
+char c[512];int top=10;
+fgets(c,512,stdin);
+double fs[26];int id[26];
+for(int i=0;i<26;i++)fs[i]=0,id[i]=i;
+for(int i=0;c[i];i++) if(c[i]>='A'&&c[i]<='Z') fs[c[i]-'A']++;
+for(int i=0;i<26;i++) for(int j=i+1;j<26;j++) if(fs[j]>fs[i]){double t=fs[i];fs[i]=fs[j];fs[j]=t;int x=id[i];id[i]=id[j];id[j]=x;}
+for(int k=0;k<top;k++){
+char m[26],p[512]; for(int i=0;i<26;i++) m[id[i]]=eng[(i+k)%26];
+for(int i=0;c[i];i++) p[i]=(c[i]>='A'&&c[i]<='Z')?m[c[i]-'A']:c[i]; p[strlen(c)]=0;
+printf("%d: %s\n",k+1,p);
+}
+}
