@@ -1,0 +1,13 @@
+#include <stdio.h>
+int eg(int a,int b,int*x,int*y){
+if(!b){*x=1;*y=0;return a;}
+int x1,y1,g=eg(b,a%b,&x1,&y1);
+*x=y1;*y=x1-y1*(a/b);return g;
+}
+int main(){
+int n=3599,e=31,p,q,phi,x,y;
+for(p=2;p<n;p++)if(n%p==0){q=n/p;break;}
+phi=(p-1)*(q-1);
+eg(e,phi,&x,&y);
+printf("p=%d q=%d d=%d\n",p,q,(x%phi+phi)%phi);
+}
