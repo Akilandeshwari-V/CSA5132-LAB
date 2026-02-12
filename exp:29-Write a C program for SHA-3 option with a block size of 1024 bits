@@ -1,0 +1,6 @@
+#include <stdio.h>
+int main(){
+int rate=1024,cap=1600-rate,lanes=cap/64;
+printf("Capacity lanes=%d\n",lanes);
+printf("Blocks needed=%d\n",lanes);
+}
