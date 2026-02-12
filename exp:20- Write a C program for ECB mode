@@ -1,0 +1,16 @@
+#include <stdio.h>
+void ecb(unsigned char*p,unsigned char*c,int n){
+for(int i=0;i<n;i++)c[i]=p[i]^0xAA;
+}
+void cbc(unsigned char*p,unsigned char*c,int n){
+unsigned char iv=0;
+for(int i=0;i<n;i++){c[i]=p[i]^iv^0xAA;iv=c[i];}
+}
+int main(){
+unsigned char p[]="ABCDEFGH",c1[9],c2[9];
+ecb(p,c1,8);cbc(p,c2,8);
+c1[2]^=1;c2[2]^=1;
+printf("ECB:");for(int i=0;i<8;i++)printf("%c",c1[i]^0xAA);
+printf("\nCBC:");unsigned char iv=0;
+for(int i=0;i<8;i++){unsigned char x=c2[i]^iv^0xAA;iv=c2[i];printf("%c",x);}
+}
