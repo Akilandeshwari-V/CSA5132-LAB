@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+
+char eng[]="ETAOINSHRDLCUMWFGYPBVKJXQZ";
+
+int main(){
+char c[512]; int top=10;
+fgets(c,512,stdin);
+
+int f[26]={0},id[26];
+for(int i=0;i<26;i++) id[i]=i;
+for(int i=0;c[i];i++) if(c[i]>='A'&&c[i]<='Z') f[c[i]-'A']++;
+
+for(int i=0;i<26;i++)for(int j=i+1;j<26;j++)
+if(f[j]>f[i]){int t=f[i];f[i]=f[j];f[j]=t;t=id[i];id[i]=id[j];id[j]=t;}
+
+for(int k=0;k<top;k++){
+char m[26],p[512];
+for(int i=0;i<26;i++) m[id[i]]=eng[(i+k)%26];
+for(int i=0;c[i];i++) p[i]=(c[i]>='A'&&c[i]<='Z')?m[c[i]-'A']:c[i];
+p[strlen(c)]=0;
+printf("%d: %s",k+1,p);
+}
+}
