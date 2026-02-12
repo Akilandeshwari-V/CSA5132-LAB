@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <openssl/des.h>
+int main(){
+DES_cblock k1={1,2,3,4,5,6,7,8},k2={9,10,11,12,13,14,15,16},iv={0};
+DES_key_schedule s1,s2;
+DES_set_key_unchecked(&k1,&s1);
+DES_set_key_unchecked(&k2,&s2);
+unsigned char p[]="HELLOWORLD123456",c[32];
+DES_ede2_cbc_encrypt(p,c,16,&s1,&s2,&iv,DES_ENCRYPT);
+for(int i=0;i<16;i++)printf("%02X",c[i]);
+}
