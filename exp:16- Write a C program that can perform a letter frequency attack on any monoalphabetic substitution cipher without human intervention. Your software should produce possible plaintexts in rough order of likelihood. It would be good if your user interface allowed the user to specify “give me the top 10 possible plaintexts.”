@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+double e[]={8.2,1.5,2.8,4.3,13,2.2,2,6.1,7,0.15,0.77,4,2.4,6.7,7.5,1.9,0.095,6,6.3,9.1,2.8,1,2.4,0.15,2,0.074};
+int cmp(const void*a,const void*b){return *(int*)b-*(int*)a;}
+int main(){
+char c[1000];int n,i,j;
+scanf("%d\n",&n);fgets(c,1000,stdin);
+int f[26]={0},o[26],r[26];
+for(i=0;c[i];i++)if(c[i]>='A'&&c[i]<='Z')f[c[i]-'A']++;
+for(i=0;i<26;i++)o[i]=i;
+qsort(o,26,sizeof(int),cmp);
+for(i=0;i<26;i++){
+int k=0;for(j=0;j<26;j++)if(e[j]>e[k])k=j;
+r[o[i]]=k;e[k]=-1;
+}
+for(i=0;i<n;i++){
+printf("Guess %d: ",i+1);
+for(j=0;c[j];j++)
+putchar(c[j]>='A'&&c[j]<='Z'?r[c[j]-'A']+'A':c[j]);
+for(j=0;j<26;j++)if(r[j]<25)r[j]++;
+}
+}
