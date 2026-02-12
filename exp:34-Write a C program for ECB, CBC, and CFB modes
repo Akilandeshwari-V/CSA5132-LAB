@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <string.h>
+
+#define BS 8
+
+void pad(unsigned char *m,int *l){
+    m[(*l)++] = 0x80;
+    while(*l % BS) m[(*l)++] = 0x00;
+}
+
+void ecb(unsigned char *m,int l,unsigned char k){
+    for(int i=0;i<l;i++) m[i]^=k;
+}
+
+void cbc(unsigned char *m,int l,unsigned char k,unsigned char iv){
+    unsigned char prev=iv;
+    for(int i=0;i<l;i++){
+        m[i]^=prev;
+        m[i]^=k;
+        prev=m[i];
+    }
+}
+
+void cfb(unsigned char *m,int l,unsigned char k,unsigned char iv){
+    unsigned char prev=iv;
+    for(int i=0;i<l;i++){
+        unsigned char t=prev^k;
+        prev=m[i]^t;
+        m[i]=prev;
+    }
+}
+
+int main(){
+    unsigned char msg[64]="HELLO";
+    int len=strlen(msg);
+    pad(msg,&len);
+
+    ecb(msg,len,0xAA);
+    printf("ECB done\n");
+
+    cbc(msg,len,0xAA,0x55);
+    printf("CBC done\n");
+
+    cfb(msg,len,0xAA,0x55);
+    printf("CFB done\n");
+    return 0;
+}
