@@ -1,0 +1,10 @@
+#include <stdio.h>
+#include <ctype.h>
+int main(){
+char p[]="sendmoremoney",c[32],d[32];
+int k[]={9,0,1,7,23,15,21,14,11,11,2,8,9},n=13;
+for(int i=0;i<n;i++) c[i]='a'+(p[i]-'a'+k[i])%26;
+for(int i=0;i<n;i++) d[i]='a'+(c[i]-'a'-k[i]+26)%26;
+c[n]=d[n]=0;
+printf("%s\n%s\n",c,d);
+}
