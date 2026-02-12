@@ -1,0 +1,9 @@
+#include <stdio.h>
+unsigned char E(unsigned char x,unsigned char k){return x^k;}
+int main(){
+unsigned char K=0xAA,X=0x11,T,Y,IV=0;
+T=E(X^IV,K);
+Y=X^T;
+unsigned char T2=E(Y^T,K);
+printf("T=%02X T'=%02X\n",T,T2);
+}
