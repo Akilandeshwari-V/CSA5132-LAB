@@ -1,0 +1,12 @@
+#include <stdio.h>
+int m(int x){x%=26;return x<0?x+26:x;}
+int inv(int a){for(int i=1;i<26;i++)if(a*i%26==1)return i;return 0;}
+int main(){
+int P[2][2]={{7,4},{11,15}},C[2][2]={{19,7},{0,18}},d,i;
+d=m(P[0][0]*P[1][1]-P[0][1]*P[1][0]);
+int di=inv(d);
+int Pi[2][2]={{m(P[1][1]*di),m(-P[0][1]*di)},{m(-P[1][0]*di),m(P[0][0]*di)}};
+int K[2][2];
+for(i=0;i<2;i++)for(int j=0;j<2;j++)K[i][j]=m(C[i][0]*Pi[0][j]+C[i][1]*Pi[1][j]);
+printf("%d %d\n%d %d\n",K[0][0],K[0][1],K[1][0],K[1][1]);
+}
