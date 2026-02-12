@@ -1,0 +1,10 @@
+#include <stdio.h>
+int m(int x){x%=26;return x<0?x+26:x;}
+int main(){
+char p1[]="SENDMOREMONEY",p2[]="CASHNOTNEEDED",c[50];
+int k1[]={9,0,1,7,23,15,21,14,11,11,2,8,9},k2[50],i;
+for(i=0;p1[i];i++)c[i]=m(p1[i]-'A'+k1[i])+'A';
+printf("Cipher:%s\n",c);
+for(i=0;p2[i];i++)k2[i]=m(c[i]-p2[i]+'A');
+for(i=0;p2[i];i++)printf("%d ",k2[i]);
+}
