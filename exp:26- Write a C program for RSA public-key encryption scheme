@@ -1,0 +1,11 @@
+#include <stdio.h>
+int eg(int a,int b,int*x,int*y){
+if(!b){*x=1;*y=0;return a;}
+int x1,y1,g=eg(b,a%b,&x1,&y1);
+*x=y1;*y=x1-y1*(a/b);return g;
+}
+int main(){
+int n=3599,e=31,d=3031,p=59,q=61,phi=(p-1)*(q-1);
+int e2=17,x,y;eg(e2,phi,&x,&y);
+printf("New d=%d\n",(x%phi+phi)%phi);
+}
