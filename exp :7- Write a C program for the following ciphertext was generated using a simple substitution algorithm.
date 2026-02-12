@@ -1,0 +1,15 @@
+#include <stdio.h>
+char d(char c){
+    switch(c){
+        case '5':return 'a';case '3':return 'g';case '‡':return 'o';case '†':return 'd';
+        case '3'+0:return 'g';case '0':return 'l';case ')':return 's';case '*':return 'i';
+        case ';':return 'n';case '4':return 't';case '8':return 'e';case '6':return 'r';
+        case '¶':return 'h';case '(':return 'b';case '9':return 'y';case '1':return 'm';
+        case '2':return 'u';case '?':return 'k';case ']':return 'f';case '—':return 'w';
+        default:return ' ';
+    }
+}
+int main(){
+char c[]="53‡‡†305))6*;4826)4‡.)4‡);806*;48†8¶60))85;;]8*;:‡*8†83(88)5*†;46(;88*96*?;8)*‡(;485);5*†2:*‡(;4956*2(5*—4)8¶8*;4069285);)6†8)4‡‡;1(‡9;48081;8:8‡1;48†85;4)485†528806*81(‡9;48;(88;4(‡?34;48)4‡;161;:188;‡?;";
+for(int i=0;c[i];i++)putchar(d(c[i]));
+}
