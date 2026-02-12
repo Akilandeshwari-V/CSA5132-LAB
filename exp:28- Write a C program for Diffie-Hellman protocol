@@ -1,0 +1,9 @@
+#include <stdio.h>
+long mod(long a,long e,long m){long r=1;while(e){if(e&1)r=r*a%m;a=a*a%m;e>>=1;}return r;}
+int main(){
+long a=5,q=23,x=6,y=15;
+long A=mod(a,x,q),B=mod(a,y,q);
+printf("DH key:%ld %ld\n",mod(B,x,q),mod(A,y,q));
+long A2=a*x,B2=a*y;
+printf("Broken key:%ld %ld\n",(A2*y)%q,(B2*x)%q);
+}
