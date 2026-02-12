@@ -1,0 +1,9 @@
+#include <stdio.h>
+int E(int a,int b,int p){return (a*p+b)%26;}
+int gcd(int a,int b){return b?gcd(b,a%b):a;}
+int main(){
+int a=2,b=3;
+printf("gcd(a,26)=%d\n",gcd(a,26));
+printf("E(0)=%d\n",E(a,b,0));
+printf("E(13)=%d\n",E(a,b,13));
+}
